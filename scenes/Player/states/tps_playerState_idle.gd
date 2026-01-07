@@ -1,0 +1,23 @@
+extends TPSPlayerStateInterface
+
+class_name TPSPlayerIdleState
+
+var op: TPSPlayer
+
+func enter(_prev_state: String = "") -> void:
+	op = state_machine.owner
+	#print("entering idle state")
+	Debug.player_state = "idle"
+	
+func physics_update(delta: float) -> void:
+	op.move(delta, op.SPEED, op.DECCELERATION_SPEED)
+	
+	if !op.is_on_floor():
+		state_machine.change_state("player_fall")
+
+func handle_input(_event: InputEvent) -> void:
+	if Input.get_vector("forward", "backward", "left", "right") != Vector2.ZERO:
+		state_machine.change_state("player_move")
+	
+	if Input.is_action_just_pressed("jump"):
+		state_machine.change_state("player_jumpCharge")

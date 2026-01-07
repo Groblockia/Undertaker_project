@@ -1,0 +1,51 @@
+[gd_scene load_steps=5 format=3 uid="uid://cfr6fyo87kq52"]
+
+[ext_resource type="Script" uid="uid://dt08q5wjhcjl1" path="res://scenes/Player/tps_player_script.gd" id="1_hj2nx"]
+[ext_resource type="Script" uid="uid://cdiuv1h61kp46" path="res://scenes/Player/camera_scripts/tps_camera_pivot.gd" id="2_0uvhc"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_3bjbq"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_51yu7"]
+
+[node name="TpsPlayer" type="CharacterBody3D"]
+collision_layer = 2
+script = ExtResource("1_hj2nx")
+SPEED = null
+SPRINT_SPEED = null
+ACCELERATION_SPEED = null
+DECCELERATION_SPEED = null
+AIR_DECCELERATION_SPEED = null
+JUMP_VELOCITY = null
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("CapsuleShape3D_3bjbq")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("CapsuleMesh_51yu7")
+
+[node name="head" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.75, 0)
+script = ExtResource("2_0uvhc")
+
+[node name="SpringArm3D" type="SpringArm3D" parent="head"]
+spring_length = 3.5
+margin = 1.0
+
+[node name="connard_va" type="Node3D" parent="head/SpringArm3D"]
+
+[node name="Camera3D" type="Camera3D" parent="head/SpringArm3D/connard_va"]
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 9
+anchor_bottom = 1.0
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="state_label" type="Label" parent="Control"]
+layout_mode = 1
+offset_right = 199.0
+offset_bottom = 97.0
+theme_override_font_sizes/font_size = 71
+text = "jump"
