@@ -66,9 +66,10 @@ func _process(delta: float) -> void:
 func _physics_process(delta: float) -> void:
 	if player_can_move: #run corresponding state machine function
 		state_machine.physics_update(delta)
+		get_movement_direction()
+		rotate_with_head()
 	
-	get_movement_direction()
-	rotate_with_head()
+	
 
 
 func _input(event: InputEvent) -> void:
@@ -105,6 +106,6 @@ func move(delta: float, speed: float, accel: float = 6.0) -> void:
 	move_and_slide()
 
 func rotate_with_head() -> void:
-	print("model rotation.y = ", snapped(rad_to_deg(geometry_mesh.rotation.y),0.01), ", head rotation.y = ", snapped(rad_to_deg(head.rotation.y),0.01) )
+	#print("model rotation.y = ", snapped(rad_to_deg(geometry_mesh.rotation.y),0.01), ", head rotation.y = ", snapped(rad_to_deg(head.rotation.y),0.01) )
 	geometry_mesh.rotation.y = lerp_angle(geometry_mesh.rotation.y, head.rotation.y, 0.3)
 	collision_mesh.rotation.y = head.rotation.y

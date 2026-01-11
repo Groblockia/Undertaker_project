@@ -8,7 +8,7 @@ extends Node3D
 #const CAMERA_BLEND : float = 0.05
 
 @onready var spring_arm: SpringArm3D = $SpringArm3D
-@onready var camera: Camera3D = $SpringArm3D/connard_va/Camera3D
+@onready var camera: Camera3D = $SpringArm3D/Camera3D
 @onready var player: TPSPlayer = get_parent()
 
 func _ready() -> void:
@@ -42,7 +42,7 @@ func _unhandled_input(event: InputEvent) -> void:
 			#self.rotate_y(-mouse_input.x * mouse_sensitivity)
 			#spring_arm.rotate_x(-mouse_input.y * mouse_sensitivity)
 			##limit up/down movement
-			#spring_arm.rotation.x = clamp(spring_arm.rotation.x, deg_to_rad(-50), deg_to_rad(50))
+			#spring_arm.rotation.x = clamp(spring_arm.rotation.x, -PI/4, -PI/4)
 			#
 			## Reset input for the next frame
 			#mouse_input = Vector2.ZERO
