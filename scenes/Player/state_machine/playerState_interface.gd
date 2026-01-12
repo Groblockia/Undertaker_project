@@ -1,7 +1,7 @@
 extends RefCounted
-class_name  TPSPlayerStateInterface
+class_name  PlayerStateInterface
 
-var state_machine: TPSPlayerStateMachine
+var state_machine: PlayerStateMachine
 
 func enter(_prev_state: String = "") -> void:
 	pass

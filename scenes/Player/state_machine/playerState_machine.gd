@@ -1,13 +1,13 @@
 extends RefCounted
 
-class_name TPSPlayerStateMachine
+class_name PlayerStateMachine
 
 var states: Dictionary = {}
-var current_state: TPSPlayerStateInterface
+var current_state: PlayerStateInterface
 var current_state_name: String = ""
-var owner: TPSPlayer
+var owner: Player
 
-func add_state(name: String, state: TPSPlayerStateInterface) -> void:
+func add_state(name: String, state: PlayerStateInterface) -> void:
 	states[name.to_lower()] = state
 	state.state_machine = self
 

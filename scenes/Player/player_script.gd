@@ -1,5 +1,7 @@
 extends CharacterBody3D
-class_name TPSPlayer
+
+##handles the player character
+class_name Player
 
 var player_can_move := true:
 	set(value): 
@@ -7,7 +9,7 @@ var player_can_move := true:
 		if value == false: pause_all_movements()
 		else: velocity = prev_vel
 
-var state_machine: TPSPlayerStateMachine
+var state_machine: PlayerStateMachine
 var gravity := 9.8 * 4
 var direction: Vector3
 var input_dir: Vector2
@@ -31,16 +33,16 @@ var prev_vel: Vector3
 @onready var geometry_mesh = $mech_prototype
 
 func _ready() -> void:
-	state_machine = TPSPlayerStateMachine.new()
+	state_machine = PlayerStateMachine.new()
 	state_machine.owner = self
 	
 	#create and add states to use
-	state_machine.add_state("player_idle", TPSPlayerIdleState.new())
-	state_machine.add_state("player_move", TPSPlayerMoveState.new())
-	state_machine.add_state("player_jump", TPSPlayerJumpState.new())
-	state_machine.add_state("player_fall", TPSPlayerFallState.new())
-	state_machine.add_state("player_sprint", TPSPlayerSprintState.new())
-	state_machine.add_state("player_JumpCharge", TPSPlayerJumpChargeState.new())
+	state_machine.add_state("player_idle", PlayerIdleState.new())
+	state_machine.add_state("player_move", PlayerMoveState.new())
+	state_machine.add_state("player_jump", PlayerJumpState.new())
+	state_machine.add_state("player_fall", PlayerFallState.new())
+	state_machine.add_state("player_sprint", PlayerSprintState.new())
+	state_machine.add_state("player_JumpCharge", PlayerJumpChargeState.new())
 	
 	state_machine.set_initial_state("player_idle")
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)

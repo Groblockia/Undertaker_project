@@ -1,7 +1,7 @@
 [gd_scene format=4 uid="uid://cfr6fyo87kq52"]
 
-[ext_resource type="Script" uid="uid://dt08q5wjhcjl1" path="res://scenes/Player/tps_player_script.gd" id="1_hj2nx"]
-[ext_resource type="Script" uid="uid://cdiuv1h61kp46" path="res://scenes/Player/camera_scripts/tps_camera_pivot.gd" id="2_0uvhc"]
+[ext_resource type="Script" uid="uid://c0hslq1yll78m" path="res://scenes/Player/player_script.gd" id="1_52wcp"]
+[ext_resource type="Script" uid="uid://cdiuv1h61kp46" path="res://scenes/Player/camera_scripts/camera_pivot.gd" id="2_0uvhc"]
 [ext_resource type="Script" uid="uid://chnlkjtg77ual" path="res://scenes/Player/IK_scripts/fabrik_3d.gd" id="3_52wcp"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_3bjbq"]
@@ -788,7 +788,7 @@ height = 0.25
 
 [node name="TpsPlayer" type="CharacterBody3D" unique_id=868017891]
 collision_layer = 2
-script = ExtResource("1_hj2nx")
+script = ExtResource("1_52wcp")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=150911460]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1607666, 0)

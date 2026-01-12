@@ -9,7 +9,7 @@ extends Node3D
 
 @onready var spring_arm: SpringArm3D = $SpringArm3D
 @onready var camera: Camera3D = $SpringArm3D/Camera3D
-@onready var player: TPSPlayer = get_parent()
+@onready var player: Player = get_parent()
 
 func _ready() -> void:
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)

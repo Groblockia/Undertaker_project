@@ -1,8 +1,9 @@
-extends TPSPlayerStateInterface
+extends PlayerStateInterface
 
-class_name TPSPlayerIdleState
+##handles the player idle state
+class_name PlayerIdleState
 
-var op: TPSPlayer
+var op: Player
 
 func enter(_prev_state: String = "") -> void:
 	op = state_machine.owner

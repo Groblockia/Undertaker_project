@@ -1,8 +1,9 @@
-extends TPSPlayerStateInterface
+extends PlayerStateInterface
 
-class_name TPSPlayerJumpChargeState
+##decides how much jump power to give the player based on how long they hold the jump button
+class_name PlayerJumpChargeState
 
-var op: TPSPlayer
+var op: Player
 var current_charge_time: float
 
 const CHARGE_THRESHOLD: float = 0.25

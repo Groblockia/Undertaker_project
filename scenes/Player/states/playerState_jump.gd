@@ -1,8 +1,9 @@
-extends TPSPlayerStateInterface
+extends PlayerStateInterface
 
-class_name TPSPlayerJumpState
+##applies the jump to the player based on the charged jump power
+class_name PlayerJumpState
 
-var op: TPSPlayer
+var op: Player
 var vertical_part: Vector3
 var horizontal_part: Vector3
 var prev_velocity

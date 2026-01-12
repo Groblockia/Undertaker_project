@@ -1,8 +1,9 @@
-extends TPSPlayerStateInterface
+extends PlayerStateInterface
 
-class_name TPSPlayerFallState
+##handles the player falling through the air
+class_name PlayerFallState
 
-var op: TPSPlayer
+var op: Player
 
 func enter(_prev_state: String = "") -> void:
 	op = state_machine.owner
