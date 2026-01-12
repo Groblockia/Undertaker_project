@@ -1283,3 +1283,9 @@ transform = Transform3D(-0.009999999, -9.197459e-24, -8.742274e-10, -8.742274e-1
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="mech_prototype/Armature/Skeleton3D/mid_Bk_R_constraint" unique_id=280241872]
 mesh = SubResource("SphereMesh_uljgi")
+
+[node name="DashTimer" type="Timer" parent="." unique_id=192818515]
+wait_time = 0.5
+one_shot = true
+
+[connection signal="timeout" from="DashTimer" to="." method="_on_dash_timer_timeout"]

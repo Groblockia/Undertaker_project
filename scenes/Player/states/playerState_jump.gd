@@ -17,7 +17,7 @@ func enter(_prev_state: String = "") -> void:
 	final_angle = op.JUMP_ANGLE_DEG
 	
 	#if no movement input, make the jump vertical only
-	if input_dir.length_squared() < 0.1:
+	if !op.is_moving():
 		input_dir = Vector3.ZERO
 		final_angle = 90.0
 	

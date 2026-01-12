@@ -15,29 +15,47 @@ func enter(_prev_state: String = "") -> void:
 	Debug.player_state = "jumpCharge"
 	current_jump_force = op.DEF_JUMP_VELOCITY
 	time_held = 0
-	
+
 
 func physics_update(delta: float) -> void:
-	
 	time_held += delta
 	
-	if Input.is_action_pressed("jump"):
-		#if jump is held long enough, start charging the jump
-		if time_held > CHARGE_THRESHOLD:
-			current_jump_force += delta * op.JUMP_CHARGE_SPEED
-			current_jump_force = clamp(current_jump_force, 0.0, op.MAX_JUMP_VELOCITY)
-			
-			#movement speed while charging the jump
-			op.move(delta, op.CHARGING_SPEED)
-			
-			Debug.generic_value = str(snapped(current_jump_force, 0.01))
-			
-		else:
-			op.move(delta, op.SPEED)
+	#if jump is held long enough, start charging the jump
+	if time_held > CHARGE_THRESHOLD:
+		current_jump_force += delta * op.JUMP_CHARGE_SPEED
+		current_jump_force = clamp(current_jump_force, 0.0, op.MAX_JUMP_VELOCITY)
+		
+		#movement speed while charging the jump
+		op.move(delta, op.CHARGING_SPEED)
+		
+		Debug.generic_value = str(snapped(current_jump_force, 0.01))
+
+	#when not charging, move at normal speed
+	else:
+		op.move(delta, op.SPEED)
 
 	if Input.is_action_just_released("jump"):
 		Debug.generic_value = str(snapped(current_jump_force, 0.01))
+
+		if time_held > CHARGE_THRESHOLD:
+			op.current_jump_value = current_jump_force
+			state_machine.change_state("player_jump")
 		
-		op.current_jump_value = current_jump_force
-		state_machine.change_state("player_jump")
+		else:
+			if op.can_dash:
+				state_machine.change_state("player_dash")
+
+			else:
+				print("Dash on cooldown, cannot dash.")
+				#transition to appropriate state
+				if op.is_on_floor():
+					if op.is_moving:
+						if Input.is_action_pressed("sprint"):
+							state_machine.change_state("player_sprint")
+						else:
+							state_machine.change_state("player_move")
+					else:
+						state_machine.change_state("player_idle")
+				else:
+					state_machine.change_state("player_fall")
 	

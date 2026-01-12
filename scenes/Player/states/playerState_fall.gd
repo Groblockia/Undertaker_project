@@ -9,6 +9,7 @@ func enter(_prev_state: String = "") -> void:
 	op = state_machine.owner
 	Debug.player_state = "fall"
 
+
 func physics_update(delta: float) -> void:
 	#apply gravity and movement while in the air
 	op.velocity.y -= op.gravity * delta
