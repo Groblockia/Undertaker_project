@@ -2,38 +2,42 @@ extends PlayerStateInterface
 
 ##decides how much jump power to give the player based on how long they hold the jump button
 class_name PlayerJumpChargeState
-
 var op: Player
-var current_charge_time: float
 
+#time before the jump starts charging
 const CHARGE_THRESHOLD: float = 0.25
+
+var current_jump_force: float
 var time_held: float
 
 func enter(_prev_state: String = "") -> void:
 	op = state_machine.owner
-	#print("entering jumpCharge state")
-	current_charge_time = op.DEF_JUMP_VELOCITY
-	time_held = 0
 	Debug.player_state = "jumpCharge"
+	current_jump_force = op.DEF_JUMP_VELOCITY
+	time_held = 0
+	
 
 func physics_update(delta: float) -> void:
 	
 	time_held += delta
 	
 	if Input.is_action_pressed("jump"):
+		#if jump is held long enough, start charging the jump
 		if time_held > CHARGE_THRESHOLD:
-			current_charge_time += delta * 15
-			current_charge_time = clamp(current_charge_time, 0.0, op.MAX_JUMP_VELOCITY)
+			current_jump_force += delta * op.JUMP_CHARGE_SPEED
+			current_jump_force = clamp(current_jump_force, 0.0, op.MAX_JUMP_VELOCITY)
 			
+			#movement speed while charging the jump
 			op.move(delta, op.CHARGING_SPEED)
 			
-			Debug.generic_value = str(snapped(current_charge_time, 0.01))
+			Debug.generic_value = str(snapped(current_jump_force, 0.01))
 			
 		else:
 			op.move(delta, op.SPEED)
 
 	if Input.is_action_just_released("jump"):
-		Debug.generic_value = str(snapped(current_charge_time, 0.01))
-		op.current_jump_value = current_charge_time
+		Debug.generic_value = str(snapped(current_jump_force, 0.01))
+		
+		op.current_jump_value = current_jump_force
 		state_machine.change_state("player_jump")
 	
