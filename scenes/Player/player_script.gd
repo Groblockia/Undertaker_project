@@ -4,6 +4,7 @@ extends CharacterBody3D
 class_name Player
 
 @export_group("Movement Stats")
+@export_category("regular movement stats")
 ##default move speed
 @export var SPEED: float = 6.0
 ##default sprint speed
@@ -14,6 +15,7 @@ class_name Player
 @export var DECCELERATION_SPEED: float = 6.0
 ##default air deceleration speed
 @export var AIR_DECCEL_SPEED: float = 2.0
+@export_category("jump related stats")
 ##default move speed while charging a jump
 @export var CHARGING_SPEED: float = 5.0
 ##default jump velocity
@@ -24,6 +26,7 @@ class_name Player
 @export var JUMP_CHARGE_SPEED: float = 15.0
 ##jump angle in degrees
 @export_range(0,90) var JUMP_ANGLE_DEG: float = 45.0
+@export_category("dash related stats")
 ##dashing speed
 @export var DASH_SPEED: float = 50.0
 ##dash duration
@@ -32,6 +35,7 @@ class_name Player
 @export var DASH_ACCELERATION: float = 100
 ##dash cooldown time
 @export var DASH_COOLDOWN: float = 1.0
+@export_category("other stats")
 ##gravity force multiplier
 @export var GRAVITY_MULTIPLIER: float = 4.0
 
