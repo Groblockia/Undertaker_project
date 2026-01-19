@@ -15,6 +15,7 @@ class_name Player
 @export var DECCELERATION_SPEED: float = 6.0
 ##default air deceleration speed
 @export var AIR_DECCEL_SPEED: float = 2.0
+
 @export_category("jump related stats")
 ##default move speed while charging a jump
 @export var CHARGING_SPEED: float = 5.0
@@ -26,6 +27,7 @@ class_name Player
 @export var JUMP_CHARGE_SPEED: float = 15.0
 ##jump angle in degrees
 @export_range(0,90) var JUMP_ANGLE_DEG: float = 45.0
+
 @export_category("dash related stats")
 ##dashing speed
 @export var DASH_SPEED: float = 50.0
@@ -35,6 +37,7 @@ class_name Player
 @export var DASH_ACCELERATION: float = 100
 ##dash cooldown time
 @export var DASH_COOLDOWN: float = 1.0
+
 @export_category("other stats")
 ##gravity force multiplier
 @export var GRAVITY_MULTIPLIER: float = 4.0
@@ -43,7 +46,7 @@ class_name Player
 @onready var head :Node3D = $head
 @onready var state_label = $Control/state_label
 @onready var collision_mesh = $CollisionShape3D
-@onready var geometry_mesh = $mech_prototype
+#@onready var geometry_mesh = $mech_prototype
 @onready var dash_cooldown_timer: Timer = $DashTimer
 var can_dash: bool = true
 
@@ -160,7 +163,7 @@ func move_specificDir(delta: float, speed: float, single_direction:Vector3 , acc
 ##rotates the player model to match the head direction
 func rotate_with_head() -> void:
 	#print("model rotation.y = ", snapped(rad_to_deg(geometry_mesh.rotation.y),0.01), ", head rotation.y = ", snapped(rad_to_deg(head.rotation.y),0.01) )
-	geometry_mesh.rotation.y = lerp_angle(geometry_mesh.rotation.y, head.rotation.y, 0.3)
+	#geometry_mesh.rotation.y = lerp_angle(geometry_mesh.rotation.y, head.rotation.y, 0.3)
 	collision_mesh.rotation.y = head.rotation.y
 
 
