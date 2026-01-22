@@ -46,7 +46,7 @@ class_name Player
 @onready var head :Node3D = $head
 @onready var state_label = $Control/state_label
 @onready var collision_mesh = $CollisionShape3D
-#@onready var geometry_mesh = $mech_prototype
+@onready var geometry_mesh = $mech
 @onready var dash_cooldown_timer: Timer = $DashTimer
 var can_dash: bool = true
 
@@ -163,7 +163,7 @@ func move_specificDir(delta: float, speed: float, single_direction:Vector3 , acc
 ##rotates the player model to match the head direction
 func rotate_with_head() -> void:
 	#print("model rotation.y = ", snapped(rad_to_deg(geometry_mesh.rotation.y),0.01), ", head rotation.y = ", snapped(rad_to_deg(head.rotation.y),0.01) )
-	#geometry_mesh.rotation.y = lerp_angle(geometry_mesh.rotation.y, head.rotation.y, 0.3)
+	geometry_mesh.rotation.y = lerp_angle(geometry_mesh.rotation.y, head.rotation.y, 0.3)
 	collision_mesh.rotation.y = head.rotation.y
 
 

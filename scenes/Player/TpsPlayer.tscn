@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://c0hslq1yll78m" path="res://scenes/Player/player_script.gd" id="1_52wcp"]
 [ext_resource type="Script" uid="uid://cdiuv1h61kp46" path="res://scenes/Player/camera_scripts/camera_pivot.gd" id="2_0uvhc"]
+[ext_resource type="Script" uid="uid://os00wlo5xpvr" path="res://scenes/Player/IK_scripts/ik_manager.gd" id="3_52wcp"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_3bjbq"]
 
@@ -95,12 +96,29 @@ _surfaces = [{
 }]
 blend_shape_mode = 0
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_tvylp"]
+transparency = 1
+albedo_color = Color(0, 1, 0.049999952, 0.49803922)
+
+[sub_resource type="BoxMesh" id="BoxMesh_tvylp"]
+material = SubResource("StandardMaterial3D_tvylp")
+size = Vector3(0.5, 0.5, 0.5)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_52wcp"]
+transparency = 1
+albedo_color = Color(1, 0, 0, 0.49803922)
+
+[sub_resource type="SphereMesh" id="SphereMesh_uljgi"]
+material = SubResource("StandardMaterial3D_52wcp")
+radius = 0.25
+height = 0.5
+
 [node name="TpsPlayer" type="CharacterBody3D" unique_id=868017891]
 collision_layer = 2
 script = ExtResource("1_52wcp")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=150911460]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.001, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
 shape = SubResource("CapsuleShape3D_3bjbq")
 
 [node name="head" type="Node3D" parent="." unique_id=1866873577]
@@ -108,7 +126,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.75, 0)
 script = ExtResource("2_0uvhc")
 
 [node name="SpringArm3D" type="SpringArm3D" parent="head" unique_id=1037054232]
-spring_length = 3.5
+spring_length = 4.5
 
 [node name="Camera3D" type="Camera3D" parent="head/SpringArm3D" unique_id=313064750]
 
@@ -149,6 +167,7 @@ one_shot = true
 [node name="mech" type="Node3D" parent="." unique_id=1315358298]
 
 [node name="Armature" type="Node3D" parent="mech" unique_id=148555486]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 0, 0, 0)
 
 [node name="Skeleton3D" type="Skeleton3D" parent="mech/Armature" unique_id=765669931]
 bones/0/name = "Body"
@@ -250,5 +269,181 @@ skin = SubResource("Skin_sky8g")
 [node name="legs" type="MeshInstance3D" parent="mech/Armature/Skeleton3D" unique_id=1620222687]
 mesh = SubResource("ArrayMesh_im1e0")
 skin = SubResource("Skin_sky8g")
+
+[node name="end_IK" type="FABRIK3D" parent="mech/Armature/Skeleton3D" unique_id=458780406]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.4021087, 0, 0.1395061)
+setting_count = 4
+settings/0/target_node = NodePath("../../../../IkTargets/Current/end/front_left")
+settings/1/target_node = NodePath("../../../../IkTargets/Current/end/front_right")
+settings/2/target_node = NodePath("../../../../IkTargets/Current/end/back_left")
+settings/3/target_node = NodePath("../../../../IkTargets/Current/end/back_right")
+settings/0/root_bone_name = "leg.FR.L.001"
+settings/0/root_bone = 1
+settings/0/end_bone_name = "empty.FR.L"
+settings/0/end_bone = 3
+settings/0/extend_end_bone = false
+settings/0/joint_count = 3
+settings/1/root_bone_name = "leg.FR.R.001"
+settings/1/root_bone = 7
+settings/1/end_bone_name = "empty.FR.R"
+settings/1/end_bone = 9
+settings/1/extend_end_bone = false
+settings/1/joint_count = 3
+settings/2/root_bone_name = "leg.BK.L.001"
+settings/2/root_bone = 4
+settings/2/end_bone_name = "empty.BK.L"
+settings/2/end_bone = 6
+settings/2/extend_end_bone = false
+settings/2/joint_count = 3
+settings/3/root_bone_name = "leg.BK.R.003"
+settings/3/root_bone = 10
+settings/3/end_bone_name = "empty.BK.R"
+settings/3/end_bone = 12
+settings/3/extend_end_bone = false
+settings/3/joint_count = 3
+settings/0/joints/0/rotation_axis = 3
+settings/0/joints/0/limitation = null
+settings/0/joints/1/rotation_axis = 3
+settings/0/joints/1/limitation = null
+settings/0/joints/2/rotation_axis = 3
+settings/0/joints/2/limitation = null
+settings/1/joints/0/rotation_axis = 3
+settings/1/joints/0/limitation = null
+settings/1/joints/1/rotation_axis = 3
+settings/1/joints/1/limitation = null
+settings/1/joints/2/rotation_axis = 3
+settings/1/joints/2/limitation = null
+settings/2/joints/0/rotation_axis = 3
+settings/2/joints/0/limitation = null
+settings/2/joints/1/rotation_axis = 3
+settings/2/joints/1/limitation = null
+settings/2/joints/2/rotation_axis = 3
+settings/2/joints/2/limitation = null
+settings/3/joints/0/rotation_axis = 3
+settings/3/joints/0/limitation = null
+settings/3/joints/1/rotation_axis = 3
+settings/3/joints/1/limitation = null
+settings/3/joints/2/rotation_axis = 3
+settings/3/joints/2/limitation = null
+
+[node name="IkTargets" type="Node3D" parent="." unique_id=1847873141]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 0, 0, 0)
+
+[node name="Predicted" type="Node3D" parent="IkTargets" unique_id=235965173]
+
+[node name="top" type="Node3D" parent="IkTargets/Predicted" unique_id=1399834229]
+
+[node name="front_left" type="Node3D" parent="IkTargets/Predicted/top" unique_id=64587421]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.5, 2.1430297, -1.5)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="IkTargets/Predicted/top/front_left" unique_id=2099872513]
+mesh = SubResource("BoxMesh_tvylp")
+
+[node name="front_right" type="Node3D" parent="IkTargets/Predicted/top" unique_id=189443427]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.5, 2.1430297, 1.5)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="IkTargets/Predicted/top/front_right" unique_id=2102644483]
+mesh = SubResource("BoxMesh_tvylp")
+
+[node name="back_left" type="Node3D" parent="IkTargets/Predicted/top" unique_id=1857326469]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.85, 2.1430297, -1.5)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="IkTargets/Predicted/top/back_left" unique_id=1576516825]
+mesh = SubResource("BoxMesh_tvylp")
+
+[node name="back_right" type="Node3D" parent="IkTargets/Predicted/top" unique_id=2067176079]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.85, 2.1430297, 1.5)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="IkTargets/Predicted/top/back_right" unique_id=1542057426]
+mesh = SubResource("BoxMesh_tvylp")
+
+[node name="end" type="Node3D" parent="IkTargets/Predicted" unique_id=95782355]
+
+[node name="front_left" type="Node3D" parent="IkTargets/Predicted/end" unique_id=1030078817]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.5, -1.15, -2.75)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="IkTargets/Predicted/end/front_left" unique_id=258673265]
+mesh = SubResource("BoxMesh_tvylp")
+
+[node name="RayCast3D" type="RayCast3D" parent="IkTargets/Predicted/end/front_left" unique_id=1777068477]
+target_position = Vector3(0, -2, 0)
+
+[node name="front_right" type="Node3D" parent="IkTargets/Predicted/end" unique_id=357041160]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.5, -1.15, 2.75)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="IkTargets/Predicted/end/front_right" unique_id=2120665263]
+mesh = SubResource("BoxMesh_tvylp")
+
+[node name="RayCast3D" type="RayCast3D" parent="IkTargets/Predicted/end/front_right" unique_id=340578416]
+target_position = Vector3(0, -2, 0)
+
+[node name="back_left" type="Node3D" parent="IkTargets/Predicted/end" unique_id=962172812]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.85, -1.15, -2.75)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="IkTargets/Predicted/end/back_left" unique_id=1197105723]
+mesh = SubResource("BoxMesh_tvylp")
+
+[node name="RayCast3D" type="RayCast3D" parent="IkTargets/Predicted/end/back_left" unique_id=200309529]
+target_position = Vector3(0, -2, 0)
+
+[node name="back_right" type="Node3D" parent="IkTargets/Predicted/end" unique_id=63185508]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.85, -1.15, 2.75)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="IkTargets/Predicted/end/back_right" unique_id=804287545]
+mesh = SubResource("BoxMesh_tvylp")
+
+[node name="RayCast3D" type="RayCast3D" parent="IkTargets/Predicted/end/back_right" unique_id=1226696400]
+target_position = Vector3(0, -2, 0)
+
+[node name="Current" type="Node3D" parent="IkTargets" unique_id=1484692727]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 0, 0, 0)
+top_level = true
+
+[node name="top" type="Node3D" parent="IkTargets/Current" unique_id=1360919213]
+
+[node name="front_left" type="Node3D" parent="IkTargets/Current/top" unique_id=1508812662]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="IkTargets/Current/top/front_left" unique_id=168278518]
+mesh = SubResource("SphereMesh_uljgi")
+
+[node name="front_right" type="Node3D" parent="IkTargets/Current/top" unique_id=1109210181]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="IkTargets/Current/top/front_right" unique_id=650374943]
+mesh = SubResource("SphereMesh_uljgi")
+
+[node name="back_left" type="Node3D" parent="IkTargets/Current/top" unique_id=1822239948]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="IkTargets/Current/top/back_left" unique_id=241302486]
+mesh = SubResource("SphereMesh_uljgi")
+
+[node name="back_right" type="Node3D" parent="IkTargets/Current/top" unique_id=201948840]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="IkTargets/Current/top/back_right" unique_id=2042418027]
+mesh = SubResource("SphereMesh_uljgi")
+
+[node name="end" type="Node3D" parent="IkTargets/Current" unique_id=2060164479]
+
+[node name="front_left" type="Node3D" parent="IkTargets/Current/end" unique_id=1264994120]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="IkTargets/Current/end/front_left" unique_id=1248803005]
+mesh = SubResource("SphereMesh_uljgi")
+
+[node name="front_right" type="Node3D" parent="IkTargets/Current/end" unique_id=2082311693]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="IkTargets/Current/end/front_right" unique_id=482046395]
+mesh = SubResource("SphereMesh_uljgi")
+
+[node name="back_left" type="Node3D" parent="IkTargets/Current/end" unique_id=1479156088]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="IkTargets/Current/end/back_left" unique_id=2097544099]
+mesh = SubResource("SphereMesh_uljgi")
+
+[node name="back_right" type="Node3D" parent="IkTargets/Current/end" unique_id=1344824158]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="IkTargets/Current/end/back_right" unique_id=400964747]
+mesh = SubResource("SphereMesh_uljgi")
+
+[node name="IkManager" type="Node3D" parent="." unique_id=72221628]
+script = ExtResource("3_52wcp")
 
 [connection signal="timeout" from="DashTimer" to="." method="_on_dash_timer_timeout"]
