@@ -42,25 +42,25 @@ class_name Player
 ##gravity force multiplier
 @export var GRAVITY_MULTIPLIER: float = 4.0
 
-@onready var current_jump_value: float
+
 @onready var head :Node3D = $head
 @onready var state_label = $Control/state_label
 @onready var collision_mesh = $CollisionShape3D
 @onready var geometry_mesh = $mech
 @onready var dash_cooldown_timer: Timer = $DashTimer
+
+var current_jump_value: float
 var can_dash: bool = true
-
-var player_can_move := true:
-	set(value): 
-		player_can_move = value
-		if value == false: pause_all_movements()
-		else: velocity = prev_vel
-
 var state_machine: PlayerStateMachine
 var gravity := 9.8 * GRAVITY_MULTIPLIER
 var direction: Vector3
 var input_dir: Vector2
 var prev_vel: Vector3
+var player_can_move := true:
+	set(value): 
+		player_can_move = value
+		if value == false: pause_all_movements()
+		else: velocity = prev_vel
 
 
 func _ready() -> void:
@@ -79,8 +79,8 @@ func _ready() -> void:
 	state_machine.set_initial_state("player_idle")
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 
+	#intialize dash timer
 	dash_cooldown_timer.wait_time = DASH_COOLDOWN
-
 
 func _process(delta: float) -> void:
 	if player_can_move: #run corresponding state machine function
@@ -89,7 +89,7 @@ func _process(delta: float) -> void:
 	if Input.is_action_just_pressed("tab"):
 		toggle_mouse_cursor()
 	
-	#show current state and jump values
+	#show current state and jump values on screen
 	state_label.text = Debug.player_state
 	$Control/Label.text = Debug.generic_value
 
@@ -101,7 +101,6 @@ func _physics_process(delta: float) -> void:
 		get_movement_direction()
 		rotate_with_head()
 
-
 func _input(event: InputEvent) -> void:
 	if player_can_move: #run corresponding state machine function
 		state_machine.handle_input(event)
@@ -109,16 +108,13 @@ func _input(event: InputEvent) -> void:
 	#if Input.is_action_just_pressed("interact"):
 		#interaction()
 
-
 func get_current_state() -> String:
 	return state_machine.get_current_state_name()
-
 
 func pause_all_movements() -> void:
 	prev_vel = velocity
 	velocity = Vector3(0,0,0)
 	state_machine.change_state("player_idle")
-
 
 #func interaction() -> void:
 	#@warning_ignore("unsafe_method_access", "untyped_declaration")
@@ -138,12 +134,10 @@ func toggle_mouse_cursor() -> void:
 func is_moving() -> bool:
 	return Input.get_vector("forward", "backward", "left", "right") != Vector2.ZERO
 
-
 func get_movement_direction() -> void:
-	input_dir = (Input.
-	get_vector("left", "right", "forward", "backward"))
+	input_dir = (Input.get_vector("left", "right", "forward", "backward"))
+	#calculate movement direction based on input direction then rotated by head rotation
 	direction = (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized().rotated(Vector3.UP, head.rotation.y)
-
 
 ##moves the player character based on input direction, speed, and acceleration
 func move(delta: float, speed: float, accel: float = 6.0) -> void:
@@ -159,13 +153,10 @@ func move_specificDir(delta: float, speed: float, single_direction:Vector3 , acc
 	
 	move_and_slide()
 
-
 ##rotates the player model to match the head direction
 func rotate_with_head() -> void:
-	#print("model rotation.y = ", snapped(rad_to_deg(geometry_mesh.rotation.y),0.01), ", head rotation.y = ", snapped(rad_to_deg(head.rotation.y),0.01) )
 	geometry_mesh.rotation.y = lerp_angle(geometry_mesh.rotation.y, head.rotation.y, 0.3)
 	collision_mesh.rotation.y = head.rotation.y
-
 
 func _on_dash_timer_timeout() -> void:
 	can_dash = true

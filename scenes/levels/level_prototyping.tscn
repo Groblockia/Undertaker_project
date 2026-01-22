@@ -119,12 +119,3 @@ environment = SubResource("Environment_84x7h")
 transform = Transform3D(1, 0, 0, 0, 0.70090926, 0.71325046, 0, -0.71325046, 0.70090926, 0, 0, 0)
 
 [node name="TpsPlayer" parent="." unique_id=1037822086 instance=ExtResource("2_2jqr2")]
-SPEED = null
-SPRINT_SPEED = null
-ACCELERATION_SPEED = null
-DECCELERATION_SPEED = null
-AIR_DECCEL_SPEED = null
-CHARGING_SPEED = null
-DEF_JUMP_VELOCITY = null
-MAX_JUMP_VELOCITY = null
-JUMP_ANGLE_DEG = null

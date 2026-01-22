@@ -333,10 +333,9 @@ settings/3/joints/2/limitation = null
 
 [node name="IkManager" type="Node3D" parent="." unique_id=790494537]
 script = ExtResource("3_52wcp")
-width = 2.5
-height = -1.5
-Zoffset = -0.5
-position_speed = 9.64
+width = 2.52
+length = 2.41
+height = -1.52
 
 [node name="IkTargets" type="Node3D" parent="IkManager" unique_id=1980620080]
 

@@ -111,6 +111,21 @@ size = Vector3(0.25, 0.25, 0.25)
 [node name="TpsPlayer" type="CharacterBody3D" unique_id=868017891]
 collision_layer = 2
 script = ExtResource("1_52wcp")
+SPEED = null
+SPRINT_SPEED = null
+ACCELERATION_SPEED = null
+DECCELERATION_SPEED = null
+AIR_DECCEL_SPEED = null
+CHARGING_SPEED = null
+DEF_JUMP_VELOCITY = null
+MAX_JUMP_VELOCITY = null
+JUMP_CHARGE_SPEED = null
+JUMP_ANGLE_DEG = null
+DASH_SPEED = null
+DASH_DURATION = null
+DASH_ACCELERATION = null
+DASH_COOLDOWN = null
+GRAVITY_MULTIPLIER = null
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=150911460]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
@@ -333,10 +348,9 @@ settings/3/joints/2/limitation = null
 
 [node name="IkManager" type="Node3D" parent="." unique_id=790494537]
 script = ExtResource("3_52wcp")
-width = 2.5
-height = -1.5
-Zoffset = -0.5
-position_speed = 9.64
+width = 2.52
+length = 2.41
+height = -1.52
 
 [node name="IkTargets" type="Node3D" parent="IkManager" unique_id=1980620080]
 
