@@ -43,10 +43,10 @@ class_name Player
 @export var GRAVITY_MULTIPLIER: float = 4.0
 
 
-@onready var head :Node3D = $head
+@onready var head :Node3D = %head
 @onready var state_label = $Control/state_label
 @onready var collision_mesh = $CollisionShape3D
-@onready var geometry_mesh = $mech
+@onready var geometry_mesh = %mech_model
 @onready var dash_cooldown_timer: Timer = $DashTimer
 
 var current_jump_value: float

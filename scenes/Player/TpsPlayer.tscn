@@ -126,13 +126,15 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
 shape = SubResource("CapsuleShape3D_3bjbq")
 
 [node name="head" type="Node3D" parent="." unique_id=1866873577]
+unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.75, 0)
 script = ExtResource("2_0uvhc")
 
 [node name="SpringArm3D" type="SpringArm3D" parent="head" unique_id=1037054232]
 spring_length = 7.0
 
-[node name="Camera3D" type="Camera3D" parent="head/SpringArm3D" unique_id=313064750]
+[node name="Camera" type="Camera3D" parent="head/SpringArm3D" unique_id=313064750]
+unique_name_in_owner = true
 
 [node name="Control" type="Control" parent="." unique_id=2059060599]
 layout_mode = 3
@@ -171,12 +173,13 @@ metadata/_edit_use_anchors_ = true
 wait_time = 0.5
 one_shot = true
 
-[node name="mech" type="Node3D" parent="." unique_id=1315358298]
+[node name="mech_model" type="Node3D" parent="." unique_id=1315358298]
+unique_name_in_owner = true
 
-[node name="Armature" type="Node3D" parent="mech" unique_id=148555486]
+[node name="Armature" type="Node3D" parent="mech_model" unique_id=148555486]
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 0, 0, 0)
 
-[node name="Skeleton3D" type="Skeleton3D" parent="mech/Armature" unique_id=765669931]
+[node name="Skeleton3D" type="Skeleton3D" parent="mech_model/Armature" unique_id=765669931]
 bones/0/name = "Body"
 bones/0/parent = -1
 bones/0/rest = Transform3D(-0.010752917, 0.99994236, 0.00011563701, -0.99988455, -0.010753538, 0.010752796, 0.01075342, 2.704024e-10, 0.9999422, -1.3, 0.15, -5.1595155e-08)
@@ -269,15 +272,15 @@ bones/12/position = Vector3(4.296676e-09, 3.2328901, 2.9345205e-08)
 bones/12/rotation = Quaternion(0.00045865355, -1.601929e-07, -0.007283884, 0.99997336)
 bones/12/scale = Vector3(1, 1, 1)
 
-[node name="body" type="MeshInstance3D" parent="mech/Armature/Skeleton3D" unique_id=78420080]
+[node name="body" type="MeshInstance3D" parent="mech_model/Armature/Skeleton3D" unique_id=78420080]
 mesh = SubResource("ArrayMesh_tqlhp")
 skin = SubResource("Skin_sky8g")
 
-[node name="legs" type="MeshInstance3D" parent="mech/Armature/Skeleton3D" unique_id=1620222687]
+[node name="legs" type="MeshInstance3D" parent="mech_model/Armature/Skeleton3D" unique_id=1620222687]
 mesh = SubResource("ArrayMesh_im1e0")
 skin = SubResource("Skin_sky8g")
 
-[node name="end_target" type="CCDIK3D" parent="mech/Armature/Skeleton3D" unique_id=59557467]
+[node name="end_target" type="CCDIK3D" parent="mech_model/Armature/Skeleton3D" unique_id=59557467]
 setting_count = 4
 settings/0/target_node = NodePath("../../../../IkManager/IkCurrentTargets/FrontLeftCurrent")
 settings/1/target_node = NodePath("../../../../IkManager/IkCurrentTargets/FrontRightCurrent")
@@ -340,7 +343,7 @@ settings/3/joints/1/limitation = null
 settings/3/joints/2/rotation_axis = 3
 settings/3/joints/2/limitation = null
 
-[node name="magnet_up" type="CCDIK3D" parent="mech/Armature/Skeleton3D" unique_id=479524293]
+[node name="magnet_up" type="CCDIK3D" parent="mech_model/Armature/Skeleton3D" unique_id=479524293]
 active = false
 setting_count = 4
 settings/0/target_node = NodePath("../../../../IkManager/Magnets/FrontLeftMagnet")

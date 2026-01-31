@@ -1,8 +1,8 @@
 extends Node3D
 
 @onready var parent := $".."
-@onready var head := $"../head"
-@onready var mesh := $"../mech"
+@onready var head := %head
+@onready var mesh := %mech_model
 
 # ik targets
 @onready var ik_targets_container := $IkTargets
