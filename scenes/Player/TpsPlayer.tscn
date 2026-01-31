@@ -99,15 +99,6 @@ blend_shape_mode = 0
 [sub_resource type="JointLimitationCone3D" id="JointLimitationCone3D_tvylp"]
 angle = 2.0943952
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_52wcp"]
-transparency = 1
-no_depth_test = true
-albedo_color = Color(1, 0, 0, 0.5411765)
-
-[sub_resource type="BoxMesh" id="BoxMesh_uljgi"]
-material = SubResource("StandardMaterial3D_52wcp")
-size = Vector3(0.25, 0.25, 0.25)
-
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_uljgi"]
 transparency = 1
 no_depth_test = true
@@ -116,6 +107,15 @@ albedo_color = Color(0.19999993, 1, 0, 0.56078434)
 [sub_resource type="BoxMesh" id="BoxMesh_pd1j7"]
 material = SubResource("StandardMaterial3D_uljgi")
 size = Vector3(0.2, 0.2, 0.2)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_52wcp"]
+transparency = 1
+no_depth_test = true
+albedo_color = Color(1, 0, 0, 0.5411765)
+
+[sub_resource type="BoxMesh" id="BoxMesh_uljgi"]
+material = SubResource("StandardMaterial3D_52wcp")
+size = Vector3(0.25, 0.25, 0.25)
 
 [node name="TpsPlayer" type="CharacterBody3D" unique_id=868017891]
 collision_layer = 2
@@ -279,10 +279,10 @@ skin = SubResource("Skin_sky8g")
 
 [node name="end_target" type="CCDIK3D" parent="mech/Armature/Skeleton3D" unique_id=59557467]
 setting_count = 4
-settings/0/target_node = NodePath("../../../../IkManager/IkTargets/FrontLeftMarker")
-settings/1/target_node = NodePath("../../../../IkManager/IkTargets/FrontRightMarker")
-settings/2/target_node = NodePath("../../../../IkManager/IkTargets/BackLeftMarker")
-settings/3/target_node = NodePath("../../../../IkManager/IkTargets/BackRightMarker")
+settings/0/target_node = NodePath("../../../../IkManager/IkCurrentTargets/FrontLeftCurrent")
+settings/1/target_node = NodePath("../../../../IkManager/IkCurrentTargets/FrontRightCurrent")
+settings/2/target_node = NodePath("../../../../IkManager/IkCurrentTargets/BackLeftCurrent")
+settings/3/target_node = NodePath("../../../../IkManager/IkCurrentTargets/BackRightCurrent")
 settings/0/root_bone_name = "leg.FR.L.001"
 settings/0/root_bone = 1
 settings/0/end_bone_name = "empty.FR.L"
@@ -392,59 +392,69 @@ settings/3/joints/1/limitation = null
 script = ExtResource("3_52wcp")
 height = -1.5
 Zoffset = -0.5
-position_speed = 9.64
-magnet_outward_bias = -1.34
 
 [node name="IkTargets" type="Node3D" parent="IkManager" unique_id=1980620080]
 
 [node name="FrontLeftMarker" type="Node3D" parent="IkManager/IkTargets" unique_id=2008005372]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.5, -1.5, -2.5)
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="IkManager/IkTargets/FrontLeftMarker" unique_id=553069978]
-mesh = SubResource("BoxMesh_uljgi")
+[node name="MeshInstance3D" type="MeshInstance3D" parent="IkManager/IkTargets/FrontLeftMarker" unique_id=780491725]
+mesh = SubResource("BoxMesh_pd1j7")
 
 [node name="FrontRightMarker" type="Node3D" parent="IkManager/IkTargets" unique_id=1463524796]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.5, -1.5, -2.5)
 
-[node name="MeshInstance3D2" type="MeshInstance3D" parent="IkManager/IkTargets/FrontRightMarker" unique_id=1932698792]
-mesh = SubResource("BoxMesh_uljgi")
-skeleton = NodePath("../../FrontLeftMarker")
+[node name="MeshInstance3D" type="MeshInstance3D" parent="IkManager/IkTargets/FrontRightMarker" unique_id=174083078]
+mesh = SubResource("BoxMesh_pd1j7")
 
 [node name="BackLeftMarker" type="Node3D" parent="IkManager/IkTargets" unique_id=774983331]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.5, -1.5, 1.5)
 
-[node name="MeshInstance3D3" type="MeshInstance3D" parent="IkManager/IkTargets/BackLeftMarker" unique_id=1091418862]
-mesh = SubResource("BoxMesh_uljgi")
-skeleton = NodePath("../../FrontLeftMarker")
+[node name="MeshInstance3D" type="MeshInstance3D" parent="IkManager/IkTargets/BackLeftMarker" unique_id=1804840356]
+mesh = SubResource("BoxMesh_pd1j7")
 
 [node name="BackRightMarker" type="Node3D" parent="IkManager/IkTargets" unique_id=1338668924]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.5, -1.5, 1.5)
 
-[node name="MeshInstance3D4" type="MeshInstance3D" parent="IkManager/IkTargets/BackRightMarker" unique_id=2059189295]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="IkManager/IkTargets/BackRightMarker" unique_id=1197085012]
+mesh = SubResource("BoxMesh_pd1j7")
+
+[node name="IkCurrentTargets" type="Node3D" parent="IkManager" unique_id=408638762]
+top_level = true
+
+[node name="FrontLeftCurrent" type="Node3D" parent="IkManager/IkCurrentTargets" unique_id=1418517654]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="IkManager/IkCurrentTargets/FrontLeftCurrent" unique_id=553069978]
 mesh = SubResource("BoxMesh_uljgi")
-skeleton = NodePath("../../FrontLeftMarker")
+skeleton = NodePath("../../../IkTargets/FrontLeftMarker")
+
+[node name="FrontRightCurrent" type="Node3D" parent="IkManager/IkCurrentTargets" unique_id=1990012214]
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="IkManager/IkCurrentTargets/FrontRightCurrent" unique_id=1932698792]
+mesh = SubResource("BoxMesh_uljgi")
+skeleton = NodePath("../../../IkTargets/FrontLeftMarker")
+
+[node name="BackLeftCurrent" type="Node3D" parent="IkManager/IkCurrentTargets" unique_id=343702318]
+
+[node name="MeshInstance3D3" type="MeshInstance3D" parent="IkManager/IkCurrentTargets/BackLeftCurrent" unique_id=1091418862]
+mesh = SubResource("BoxMesh_uljgi")
+skeleton = NodePath("../../../IkTargets/FrontLeftMarker")
+
+[node name="BackRightCurrent" type="Node3D" parent="IkManager/IkCurrentTargets" unique_id=1332146384]
+
+[node name="MeshInstance3D4" type="MeshInstance3D" parent="IkManager/IkCurrentTargets/BackRightCurrent" unique_id=2059189295]
+mesh = SubResource("BoxMesh_uljgi")
+skeleton = NodePath("../../../IkTargets/FrontLeftMarker")
 
 [node name="Magnets" type="Node3D" parent="IkManager" unique_id=1924281051]
 
 [node name="FrontLeftMagnet" type="Node3D" parent="IkManager/Magnets" unique_id=420005922]
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="IkManager/Magnets/FrontLeftMagnet" unique_id=420653217]
-mesh = SubResource("BoxMesh_pd1j7")
-
 [node name="FrontRightMagnet" type="Node3D" parent="IkManager/Magnets" unique_id=952486179]
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="IkManager/Magnets/FrontRightMagnet" unique_id=484075496]
-mesh = SubResource("BoxMesh_pd1j7")
 
 [node name="BackLeftMagnet" type="Node3D" parent="IkManager/Magnets" unique_id=1254729228]
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="IkManager/Magnets/BackLeftMagnet" unique_id=44497828]
-mesh = SubResource("BoxMesh_pd1j7")
-
 [node name="BackRightMagnet" type="Node3D" parent="IkManager/Magnets" unique_id=29426725]
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="IkManager/Magnets/BackRightMagnet" unique_id=1764359942]
-mesh = SubResource("BoxMesh_pd1j7")
 
 [node name="Marker3D" type="Marker3D" parent="." unique_id=615853548]
 transform = Transform3D(0.9994573, -0.020319764, 0.025925836, 0.019807948, 0.9996067, 0.019847982, -0.026318949, -0.019323675, 0.99946684, -3.6872127, -0.85023284, -1.4509978)
