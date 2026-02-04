@@ -48,7 +48,7 @@ class_name Player
 @onready var collision_mesh = $CollisionShape3D
 @onready var geometry_mesh = %mech_model
 @onready var dash_cooldown_timer: Timer = $DashTimer
-@onready var shapeCast = %Interaction_shape
+@onready var interact_shape = %Interaction_shape
 
 
 var current_jump_value: float
@@ -64,6 +64,8 @@ var player_can_move := true:
 		if value == false: pause_all_movements()
 		else: velocity = prev_vel
 var items_colliding: Array
+var distance_item_player: Array
+var closest_item: Object
 
 
 func _ready() -> void:
@@ -96,9 +98,8 @@ func _process(delta: float) -> void:
 	state_label.text = Debug.player_state
 	$ui/Label.text = Debug.generic_value
 	
-	interact()
-	#start_hover()
-	#stop_hover()
+	interact_with_item()
+	hover_on_closest()
 
 func _physics_process(delta: float) -> void:
 	if player_can_move: #run corresponding state machine function
@@ -154,22 +155,32 @@ func rotate_with_head() -> void:
 	geometry_mesh.rotation.y = lerp_angle(geometry_mesh.rotation.y, head.rotation.y, 0.3)
 	collision_mesh.rotation.y = head.rotation.y
 
-##send interact signal to all interactables in the area
-func interact():
-	items_colliding = shapeCast.get_overlapping_bodies()
+##send interact signal to closest Interactable
+func interact_with_item() -> void:
+	items_colliding = interact_shape.get_overlapping_bodies()
 	if Input.is_action_just_pressed("interact"):
-		for x in items_colliding.size():
-			Interaction_Manager.process_interact(items_colliding[x])
+		Interaction_Manager.process_interact(distance_item_player[0].collider)
 
-##make all Interactables show a label when in area
-func _on_interaction_shape_body_entered(body: Node3D) -> void:
-	if body is Interactable:
-		Interaction_Manager.hover_start(body)
+##sorts all items in range from closest to farthest in `distance_item_player` array
+func sort_items_by_closest():
+	distance_item_player.clear()
+	for x in items_colliding.size():
+		distance_item_player.append({"distance": %middle_point.global_position.distance_to(items_colliding[x].global_position), "collider": items_colliding[x] })
+	distance_item_player.sort_custom(func(a, b): return a["distance"] < b["distance"])
 
-##make all Interactables hide their label when not in area
+##send hover signal only to closest item
+func hover_on_closest() -> void:
+	sort_items_by_closest()
+	if !distance_item_player.is_empty():
+		Interaction_Manager.hover_on(distance_item_player[0].collider)
+		#print(distance_item_player)
+		for x in range(1, distance_item_player.size()):
+			Interaction_Manager.hover_off(distance_item_player[x].collider)
+
+##tells item they cannot be hovered anymore
 func _on_interaction_shape_body_exited(body: Node3D) -> void:
 	if body is Interactable:
-		Interaction_Manager.hover_stop(body)
+		Interaction_Manager.hover_off(body)
 
 func _on_dash_timer_timeout() -> void:
 	can_dash = true

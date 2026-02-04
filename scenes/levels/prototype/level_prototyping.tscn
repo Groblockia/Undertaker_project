@@ -123,7 +123,7 @@ transform = Transform3D(1, 0, 0, 0, 0.70090926, 0.71325046, 0, -0.71325046, 0.70
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -3.1676383, 0)
 
 [node name="BoxOne" parent="." unique_id=78819752 instance=ExtResource("3_4fmv2")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.517748, -3.9999986, -6.363512)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14.481527, -3.9999986, 1.0602751)
 
 [node name="BoxTwo" parent="." unique_id=1504862839 instance=ExtResource("3_4fmv2")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.9899654, -3.9999986, -8.557333)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.953745, -3.9999986, -1.1335459)

@@ -2,11 +2,11 @@ extends Interactable
 
 @onready var label = $Label3D
 
-func interacted():
+func interacted() -> void:
 	print(self.name," has received interaction")
 
-func hover_start():
+func hover_on() -> void:
 	label.show()
 
-func hover_stop():
+func hover_off() -> void:
 	label.hide()
