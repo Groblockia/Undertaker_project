@@ -44,7 +44,7 @@ class_name Player
 
 
 @onready var head :Node3D = %head
-@onready var state_label = $Control/state_label
+@onready var state_label = $ui/state_label
 @onready var collision_mesh = $CollisionShape3D
 @onready var geometry_mesh = %mech_model
 @onready var dash_cooldown_timer: Timer = $DashTimer
@@ -91,8 +91,7 @@ func _process(delta: float) -> void:
 	
 	#show current state and jump values on screen
 	state_label.text = Debug.player_state
-	$Control/Label.text = Debug.generic_value
-
+	$ui/Label.text = Debug.generic_value
 
 func _physics_process(delta: float) -> void:
 	if player_can_move: #run corresponding state machine function
@@ -101,12 +100,12 @@ func _physics_process(delta: float) -> void:
 		get_movement_direction()
 		rotate_with_head()
 
-func _input(event: InputEvent) -> void:
+func _unhandled_input(event: InputEvent) -> void:
 	if player_can_move: #run corresponding state machine function
 		state_machine.handle_input(event)
 	
-	#if Input.is_action_just_pressed("interact"):
-		#interaction()
+	if Input.is_action_just_pressed("interact"):
+		%InteractionComponent.interact()
 
 func get_current_state() -> String:
 	return state_machine.get_current_state_name()

@@ -22,7 +22,8 @@ config/icon="res://icon.svg"
 
 [autoload]
 
-Debug="*res://scripts/debug.gd"
+Debug="*res://scripts/autoloads/debug.gd"
+Interaction_Manager="*uid://w13rk88ivc5i"
 
 [editor]
 
@@ -76,6 +77,9 @@ interact={
 
 3d_physics/layer_1="world"
 3d_physics/layer_2="player"
+3d_physics/layer_3="interactible"
+3d_physics/layer_4="item"
+3d_physics/layer_5="enemy"
 
 [physics]
 

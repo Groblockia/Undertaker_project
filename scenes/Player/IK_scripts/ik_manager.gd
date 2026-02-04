@@ -19,11 +19,11 @@ extends Node3D
 @onready var back_right_current  := $IkCurrentTargets/BackRightCurrent
 
 # magnets to keep middle joints upwards
-@onready var magnets_container := $Magnets
-@onready var magnet_Fr_L := $Magnets/FrontLeftMagnet
-@onready var magnet_Fr_R := $Magnets/FrontRightMagnet
-@onready var magnet_Bk_L := $Magnets/BackLeftMagnet
-@onready var magnet_Bk_R := $Magnets/BackRightMagnet
+#@onready var magnets_container := $Magnets
+#@onready var magnet_Fr_L := $Magnets/FrontLeftMagnet
+#@onready var magnet_Fr_R := $Magnets/FrontRightMagnet
+#@onready var magnet_Bk_L := $Magnets/BackLeftMagnet
+#@onready var magnet_Bk_R := $Magnets/BackRightMagnet
 
 # position of ik targets
 @export var width: float  = 2.5 # left/right distance
@@ -51,7 +51,7 @@ func setup_marker_positions() -> void:
 
 func calculate_marker_positions(delta: float) -> void:
 	ik_targets_container.rotation.y = lerp_angle(ik_targets_container.rotation.y, head.rotation.y, delta * position_speed)
-	magnets_container.rotation.y 	= lerp_angle(magnets_container.rotation.y, head.rotation.y, delta * position_speed)
+	#magnets_container.rotation.y 	= lerp_angle(magnets_container.rotation.y, head.rotation.y, delta * position_speed)
 
 	# direction * basis = local to global, direction * basis.inverse() = global to local
 	var local_lean = ik_targets_container.global_transform.basis.inverse() * ((parent.velocity * 0.5).clamp(Vector3(-1.5, -1.5, -1.5), Vector3(1.5, 1.5, 1.5)))

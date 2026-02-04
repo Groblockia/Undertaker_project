@@ -1,23 +1,24 @@
 [gd_scene format=3 uid="uid://c8mj25t322nmg"]
 
-[ext_resource type="Texture2D" uid="uid://crwtsxbjmnu3t" path="res://icon.svg" id="1_3mobw"]
-[ext_resource type="PackedScene" uid="uid://cfr6fyo87kq52" path="res://scenes/Player/TpsPlayer.tscn" id="2_2jqr2"]
+[ext_resource type="Texture2D" uid="uid://crwtsxbjmnu3t" path="res://icon.svg" id="1_eb4es"]
+[ext_resource type="PackedScene" uid="uid://cfr6fyo87kq52" path="res://scenes/player/TpsPlayer.tscn" id="2_4fmv2"]
+[ext_resource type="PackedScene" uid="uid://c7pb1w3yehko" path="res://scenes/box/box.tscn" id="3_4fmv2"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ut215"]
-albedo_texture = ExtResource("1_3mobw")
+albedo_texture = ExtResource("1_eb4es")
 uv1_triplanar = true
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_3mobw"]
-albedo_texture = ExtResource("1_3mobw")
+albedo_texture = ExtResource("1_eb4es")
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_2jqr2"]
-albedo_texture = ExtResource("1_3mobw")
+albedo_texture = ExtResource("1_eb4es")
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_x4ii2"]
-albedo_texture = ExtResource("1_3mobw")
+albedo_texture = ExtResource("1_eb4es")
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_84x7h"]
-albedo_texture = ExtResource("1_3mobw")
+albedo_texture = ExtResource("1_eb4es")
 
 [sub_resource type="PhysicalSkyMaterial" id="PhysicalSkyMaterial_2jqr2"]
 energy_multiplier = 2.0
@@ -118,5 +119,8 @@ environment = SubResource("Environment_84x7h")
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="WorldEnvironment" unique_id=413840389]
 transform = Transform3D(1, 0, 0, 0, 0.70090926, 0.71325046, 0, -0.71325046, 0.70090926, 0, 0, 0)
 
-[node name="TpsPlayer" parent="." unique_id=1037822086 instance=ExtResource("2_2jqr2")]
+[node name="TpsPlayer" parent="." unique_id=1037822086 instance=ExtResource("2_4fmv2")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -3.1676383, 0)
+
+[node name="box" parent="." unique_id=78819752 instance=ExtResource("3_4fmv2")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.517748, -3.9999986, -6.363512)
