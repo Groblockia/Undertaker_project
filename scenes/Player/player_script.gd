@@ -48,6 +48,8 @@ class_name Player
 @onready var collision_mesh = $CollisionShape3D
 @onready var geometry_mesh = %mech_model
 @onready var dash_cooldown_timer: Timer = $DashTimer
+@onready var shapeCast = %Interaction_shape
+
 
 var current_jump_value: float
 var can_dash: bool = true
@@ -61,6 +63,7 @@ var player_can_move := true:
 		player_can_move = value
 		if value == false: pause_all_movements()
 		else: velocity = prev_vel
+var items_colliding: Array
 
 
 func _ready() -> void:
@@ -92,6 +95,10 @@ func _process(delta: float) -> void:
 	#show current state and jump values on screen
 	state_label.text = Debug.player_state
 	$ui/Label.text = Debug.generic_value
+	
+	interact()
+	#start_hover()
+	#stop_hover()
 
 func _physics_process(delta: float) -> void:
 	if player_can_move: #run corresponding state machine function
@@ -103,9 +110,6 @@ func _physics_process(delta: float) -> void:
 func _unhandled_input(event: InputEvent) -> void:
 	if player_can_move: #run corresponding state machine function
 		state_machine.handle_input(event)
-	
-	if Input.is_action_just_pressed("interact"):
-		%InteractionComponent.interact()
 
 func get_current_state() -> String:
 	return state_machine.get_current_state_name()
@@ -114,13 +118,6 @@ func pause_all_movements() -> void:
 	prev_vel = velocity
 	velocity = Vector3(0,0,0)
 	state_machine.change_state("player_idle")
-
-#func interaction() -> void:
-	#@warning_ignore("unsafe_method_access", "untyped_declaration")
-	#var col = interact_ray.get_collider()
-	#if col is InteractionArea:
-		#@warning_ignore("unsafe_method_access")
-		#col.interact(self)
 
 func toggle_mouse_cursor() -> void:
 	if Input.mouse_mode == Input.MOUSE_MODE_CAPTURED:
@@ -156,6 +153,23 @@ func move_specificDir(delta: float, speed: float, single_direction:Vector3 , acc
 func rotate_with_head() -> void:
 	geometry_mesh.rotation.y = lerp_angle(geometry_mesh.rotation.y, head.rotation.y, 0.3)
 	collision_mesh.rotation.y = head.rotation.y
+
+##send interact signal to all interactables in the area
+func interact():
+	items_colliding = shapeCast.get_overlapping_bodies()
+	if Input.is_action_just_pressed("interact"):
+		for x in items_colliding.size():
+			Interaction_Manager.process_interact(items_colliding[x])
+
+##make all Interactables show a label when in area
+func _on_interaction_shape_body_entered(body: Node3D) -> void:
+	if body is Interactable:
+		Interaction_Manager.hover_start(body)
+
+##make all Interactables hide their label when not in area
+func _on_interaction_shape_body_exited(body: Node3D) -> void:
+	if body is Interactable:
+		Interaction_Manager.hover_stop(body)
 
 func _on_dash_timer_timeout() -> void:
 	can_dash = true

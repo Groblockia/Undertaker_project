@@ -3,7 +3,6 @@
 [ext_resource type="Script" uid="uid://c0hslq1yll78m" path="res://scenes/player/player_script.gd" id="1_52wcp"]
 [ext_resource type="Script" uid="uid://cdiuv1h61kp46" path="res://scenes/player/camera_scripts/camera_pivot.gd" id="2_0uvhc"]
 [ext_resource type="Script" uid="uid://os00wlo5xpvr" path="res://scenes/player/IK_scripts/ik_manager.gd" id="3_52wcp"]
-[ext_resource type="Script" uid="uid://c8m5bp1sk1qas" path="res://scenes/player/interaction_component.gd" id="4_vssvg"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_3bjbq"]
 
@@ -141,11 +140,15 @@ spring_length = 7.0
 [node name="Camera" type="Camera3D" parent="head/SpringArm3D" unique_id=313064750]
 unique_name_in_owner = true
 
-[node name="Interaction_shape" type="ShapeCast3D" parent="head" unique_id=814468584]
+[node name="Interaction_shape" type="Area3D" parent="head" unique_id=766255541]
 unique_name_in_owner = true
-transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, -0.75, -4.4488955)
-shape = SubResource("CapsuleShape3D_vssvg")
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.75, 0)
+collision_layer = 2
 collision_mask = 4
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="head/Interaction_shape" unique_id=996465265]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0, -6)
+shape = SubResource("CapsuleShape3D_vssvg")
 
 [node name="ui" type="Control" parent="." unique_id=2059060599]
 layout_mode = 3
@@ -412,8 +415,6 @@ skeleton = NodePath("../../../IkTargets/FrontLeftMarker")
 mesh = SubResource("BoxMesh_uljgi")
 skeleton = NodePath("../../../IkTargets/FrontLeftMarker")
 
-[node name="InteractionComponent" type="Node3D" parent="." unique_id=769262416]
-unique_name_in_owner = true
-script = ExtResource("4_vssvg")
-
+[connection signal="body_entered" from="head/Interaction_shape" to="." method="_on_interaction_shape_body_entered"]
+[connection signal="body_exited" from="head/Interaction_shape" to="." method="_on_interaction_shape_body_exited"]
 [connection signal="timeout" from="DashTimer" to="." method="_on_dash_timer_timeout"]
